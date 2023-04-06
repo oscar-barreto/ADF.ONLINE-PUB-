@@ -20,7 +20,12 @@ const heroAttack = document.getElementById("h-atk")
 const manaRegen = document.getElementById("mana-re");
 const enemyHp = document.getElementById("en-hp");
 const enemyAtk = document.getElementById("en-atk");
-const atkBtn = document.getElementById("btn-atk")
+const atkBtn = document.getElementById("btn-atk");
+const continueBtn = document.getElementById("continue-btn");
+const proceedContainer = document.querySelector(".proceed-container");
+const healthPotionBtn = document.getElementById("health-potion-btn");
+const skillBtn = document.getElementById("skill-shot");
+const manaPotionBtn = document.getElementById("mana-potion-btn");
 
 
 
@@ -36,12 +41,29 @@ function loadMonsterStats(){
     enemyHp.innerText = `Health points: ${monster.hp}`
     enemyAtk.innerText = `Attack: ${monster.atk}`
 }
-function battleScreen(){};
+function loadBattleScreen(){
+    capy.style.display = "none";
+    smirnoff.style.display = "none";
+    battleVision.removeChild(removeScreen);
+    document.querySelector(".custom-enemy").style.display = "block";
+};
 
-function loadStoryScreen(){};
+function loadStoryScreen(){
+    document.querySelector(".custom-hero").style.display= "none";
+    document.querySelector(".custom-enemy").style.display= "none";
+    battleVision.appendChild(removeScreen);
+    removeScreen.appendChild(proceedContainer)
+    proceedContainer.appendChild(continueBtn);
+    continueBtn.style.display = "block";
+};
+function loadVillage(){
+    summaryText.innerText = "You have arrived in the Village of Gonomira. Resupply before you continue on your journey.";
 
-
-
+};
+function useHealthPotion(){
+    let healthPotion = 1;
+    document.getElementById("hpotion-count").innerText = `${healthPotion}`
+}
 
 startBtn.addEventListener("click", () =>{
     startBtn.style.display = "none";
@@ -75,7 +97,7 @@ startBtn.addEventListener("click", () =>{
 
 warriorBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none';
-    heroClass.innerText = "Warrior";
+    heroClass.innerText = "Warrior - ";
 
     player = warrior;
 
@@ -98,7 +120,7 @@ warriorBtn.addEventListener("click", () =>{
 
 mageBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none';
-    heroClass.innerText = "Mage";
+    heroClass.innerText = "Mage - ";
 
     player = mage;
 
@@ -122,10 +144,13 @@ mageBtn.addEventListener("click", () =>{
 
 capy.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the field of Capybaras. But the on the horizon you see a really obese capybara heading to attack you. Get ready to defend yourself!";
-    capy.style.display = "none";
-    smirnoff.style.display = "none";
-    battleVision.removeChild(removeScreen);
-    document.querySelector(".custom-enemy").style.display = "block";
+    
+    loadBattleScreen();
+    
+    // capy.style.display = "none";
+    // smirnoff.style.display = "none";
+    // battleVision.removeChild(removeScreen);
+    // document.querySelector(".custom-enemy").style.display = "block";
     monster = capybara;
 
     loadMonsterStats();
@@ -151,7 +176,28 @@ capy.addEventListener("click", ()=>{
         //     manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
         //     document.querySelector(".custom-hero").style.display = "block";
         //     }
-        
+        healthPotionBtn.addEventListener("click", ()=>{
+            player.hp = player.hp + 5;
+            useHealthPotion();
+            healthPotionCount();
+            healthBar.innerText = `Health points: ${player.hp}`;
+        });
+        manaPotionBtn.addEventListener("click", ()=>{
+            player.mana = player.mana + 4;
+            ManaBar.innerText = `Mana Points: ${player.mana}`;
+        });
+
+        skillBtn.addEventListener("click", ()=>{
+            monster.hp = monster.hp - 4;
+            player.mana = player.man -4;
+            enemyHp.innerText = `Health points: ${monster.hp}`;
+            if(monster.hp<=0){
+                loadStoryScreen();
+                summaryText.innerText = "You have defeated your first mighty foe. The Capybara King. Now you must go to the nearby village in and resupply";
+                
+            }
+        })
+
         atkBtn.addEventListener("click", ()=>{
                 monster.hp = monster.hp - player.atk;
                 player.hp = player.hp - monster.atk;
@@ -159,10 +205,14 @@ capy.addEventListener("click", ()=>{
                 healthBar.innerText = `Health points: ${player.hp}`;
                 enemyHp.innerText = `Health points: ${monster.hp}`;
                 if(monster.hp<=0){
-                    document.querySelector(".custom-hero").style.display= "none";
-                    document.querySelector(".custom-enemy").style.display= "none";
-                    battleVision.appendChild(removeScreen);
-                    summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
+                    // document.querySelector(".custom-hero").style.display= "none";
+                    // document.querySelector(".custom-enemy").style.display= "none";
+                    // battleVision.appendChild(removeScreen);
+                    // summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
+
+                    loadStoryScreen();
+                    summaryText.innerText = "You have defeated your first mighty foe. The Capybara King. Now you must go to the nearby village in and resupply";
+                    
                 }
                 if(player.hp<=0){
                     alert("Game Over");
@@ -191,6 +241,25 @@ smirnoff.addEventListener("click", ()=>{
 
     loadMonsterStats();
 
+    healthPotionBtn.addEventListener("click", ()=>{
+        player.hp = player.hp + 5;
+        healthBar.innerText = `Health points: ${player.hp}`;
+    });
+    manaPotionBtn.addEventListener("click", ()=>{
+        player.mana = player.mana + 4;
+        ManaBar.innerText = `Mana Points: ${player.mana}`;
+    });
+
+    skillBtn.addEventListener("click", ()=>{
+        monster.hp = monster.hp - 4;
+        player.mana = player.man -4;
+        enemyHp.innerText = `Health points: ${monster.hp}`;
+        if(monster.hp<=0){
+            loadStoryScreen();
+            summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey. Stop at the nearby village to resupply"
+            
+        }
+    })
 
     atkBtn.addEventListener("click", ()=>{
         monster.hp = monster.hp - player.atk;
@@ -202,7 +271,7 @@ smirnoff.addEventListener("click", ()=>{
             document.querySelector(".custom-hero").style.display= "none";
             document.querySelector(".custom-enemy").style.display= "none";
             battleVision.appendChild(removeScreen);
-            summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey"
+            summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey. Stop at the nearby village to resupply"
         }
         if(player.hp<=0){
             alert("Game Over");

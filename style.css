@@ -24,3 +24,8 @@
 .custom-enemy{
     display: none;
 }
+#continue-btn, #healthpo-btn, #manapo-btn{
+    width: 120px;
+    height: 70px;
+    display: none;  
+}

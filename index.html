@@ -15,9 +15,11 @@
                 <div class="d-flex bg-black text-light">
                     <h3 class="m-1" id="hero-name"></h3>
                     <h3 class="m-1" id="hero-class"></h3>
+                    <h3 class="m-1" id="hero-name">Money:</h3>
+                    <h3 class="m-1">Potion: <span id="hpotion-count">1</span></h3>
                 </div>
                 <div id="story-bat">
-                    <div class="d-flex justify-content-around battle">
+                    <div class="d-flex justify-content-around">
 
                         <div class="custom-hero">
                             <ul class="stats-container list-unstyled">
@@ -29,7 +31,9 @@
                                  <li class="fs-3" id="mana-bar"></li>
                             </ul>
                             <button id="btn-atk">Attack</button>
-                            <button id="">Health Potion</button>
+                            <button id="health-potion-btn">Health Potion</button>
+                            <button id="skill-shot">Use Skill</button>
+                            <button id="mana-potion-btn">Mana Potion</button>
                         </div>
                         <div class="custom-enemy">
                             <ul class="stats-container list-unstyled">
@@ -47,9 +51,12 @@
                             <div class="level-description-container d-flex align-items-center justify-content-center">
                                 <p id="level" class="level-summary fs-3 text-center text-wrap" style="margin-top:100px; width: 500px;"></p>
                             </div>
-                            <div class="row d-flex justify-content-center align-items-center proceed-container">
+                            <div id="btn-pro" class="row d-flex justify-content-center align-items-center proceed-container">
                                 <button id="capy" class="choice-btns">Field of Capybaras</button>
                                 <button id="smirnoff" class="choice-btns">Mines of Smirnoff</button>
+                                <button class="" id="continue-btn">Continue</button>
+                                <button class="" id="healthpo-btn">Health Potion</button>
+                                <button class="" id="manapo-btn">Mana Potion</button>
                             </div>
                         </div>
                     </div>
