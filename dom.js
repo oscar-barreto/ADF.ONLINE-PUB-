@@ -12,6 +12,8 @@ const btnClassCon = document.getElementById("btn-con");
 const summaryText = document.getElementById("level");
 const capy = document.getElementById("capy");
 const smirnoff = document.getElementById("smirnoff");
+const battleVision = document.getElementById("story-bat");
+const removeScreen = document.getElementById("removable-screen");
 
 
 
@@ -95,10 +97,12 @@ rogueBtn.addEventListener("click", () =>{
 capy.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the field of Capybaras. But the on the horizon you see a really obese capybara heading to attack you. Get ready to defend yourself!";
     capy.style.display = "none";
-    smirnoff.style.display = "none"; 
+    smirnoff.style.display = "none";
+    battleVision.removeChild(removeScreen);
 });
 smirnoff.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the Mines of Smirnoff. But then you see on the horizon an angry dwarf holding his sword charging towards you. Get ready to defend yourself!";
     capy.style.display = "none";
     smirnoff.style.display = "none"; 
+    battleVision.removeChild(removeScreen);
 })

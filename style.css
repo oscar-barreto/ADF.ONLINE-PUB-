@@ -18,3 +18,9 @@
     margin: 15px;
     padding: 5px;
 }
+.custom-hero{
+    display: none;
+}
+.custom-enemy{
+    display: none;
+}
