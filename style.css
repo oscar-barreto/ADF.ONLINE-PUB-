@@ -7,7 +7,14 @@
 .custom-col{
     display: none;
 }
-.proceed-container button{
+.pro-btn{
     width: 100px;
     height: 50px;
+}
+.choice-btns{
+    width: 120px;
+    height: 70px;
+    display: none;
+    margin: 15px;
+    padding: 5px;
 }
