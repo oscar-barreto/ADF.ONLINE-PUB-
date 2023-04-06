@@ -4,7 +4,6 @@ const gameTitle = document.getElementById("game-title");
 const inGamePanel = document.getElementById("ingame-panel");
 const game = document.getElementById('game');
 const heroName =document.getElementById("hero-name");
-const rogueBtn = document.getElementById("rogue-btn");
 const mageBtn = document.getElementById("mage-btn");
 const heroClass = document.getElementById("hero-class");
 const warriorBtn = document.getElementById("warrior-btn")
@@ -14,6 +13,13 @@ const capy = document.getElementById("capy");
 const smirnoff = document.getElementById("smirnoff");
 const battleVision = document.getElementById("story-bat");
 const removeScreen = document.getElementById("removable-screen");
+const healthBar = document.getElementById("health-bar");
+const ManaBar = document.getElementById("mana-bar");
+const hpRegen = document.getElementById("hp-re");
+const manaRegen = document.getElementById("mana-re");
+const enemyHp = document.getElementById("en-hp");
+const enemyAtk = document.getElementById("en-atk");
+
 
 
 
@@ -45,6 +51,9 @@ startBtn.addEventListener("click", () =>{
     invInput.style.display = "block";
 });
 
+// Warrior hero class button choice
+
+
 warriorBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none'
     heroClass.innerText = "Warrior";
@@ -61,9 +70,13 @@ warriorBtn.addEventListener("click", () =>{
         smirnoff.style.display = "block";
     })
 });
+
+
+// Mage hero class button choice
+
 mageBtn.addEventListener("click", () =>{
-    btnClassCon.style.display = 'none'
-    heroClass.innerText = "Mage"
+    btnClassCon.style.display = 'none';
+    heroClass.innerText = "Mage";
     document.getElementById("class-getter").style.display='none';
     summaryText.innerText =  `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
     const proceedBtn =document.createElement("button");
@@ -77,32 +90,51 @@ mageBtn.addEventListener("click", () =>{
         smirnoff.style.display = "block";
     })
 });
-rogueBtn.addEventListener("click", () =>{
-    btnClassCon.style.display = 'none'
-    heroClass.innerText = "Rogue";
-    document.getElementById("class-getter").style.display='none';
-    summaryText.innerText =  `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
-    const proceedBtn =document.createElement("button");
-    proceedBtn.innerText = 'Proceed';
-    proceedBtn.classList.add("pro-btn");
-    document.querySelector(".proceed-container").appendChild(proceedBtn);
-    document.querySelector(".pro-btn").addEventListener("click", () =>{
-        summaryText.innerText="You were chosen to rescue princess Valentine from the castle of Ilyria, the only way to rescue her is by crossing the entire Kingdom of Abundriel. Fortunately there are multiple ways on how to get to her? Would you like to choose start by the field of Capybaras or the Mines or Smirnoff? "
-        document.querySelector(".pro-btn").style.display = "none";
-        capy.style.display = "block";
-        smirnoff.style.display = "block"; 
-    })
-});
+// Capybara field choice btn
 
 capy.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the field of Capybaras. But the on the horizon you see a really obese capybara heading to attack you. Get ready to defend yourself!";
     capy.style.display = "none";
     smirnoff.style.display = "none";
     battleVision.removeChild(removeScreen);
+    document.querySelector(".custom-enemy").style.display = "block";
+    enemyHp.innerText = `Health points: ${capybara.hp}`
+    enemyAtk.innerText = `Attack: ${capybara.atk}`
+
+        if(heroClass.innerText === "Warrior"){
+        healthBar.innerText = `Health points: ${warrior.hp}`;
+        ManaBar.innerText = `Mana Points:  ${warrior.mana}`;
+        hpRegen.innerText = `HP Regen: ${warrior.hpRegen}`;
+        manaRegen.innerText = `Mana Regen : ${warrior.manaRegen}`;
+        document.querySelector(".custom-hero").style.display = "block";
+        } else{
+            healthBar.innerText = `Health points: ${mage.hp}`;
+            ManaBar.innerText = `Mana Points:  ${mage.mana}`;
+            hpRegen.innerText = `HP Regen: ${mage.hpRegen}`;
+            manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
+            document.querySelector(".custom-hero").style.display = "block";
+            }
 });
+
+// Smirnoff mines choice btn
+
+
 smirnoff.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the Mines of Smirnoff. But then you see on the horizon an angry dwarf holding his sword charging towards you. Get ready to defend yourself!";
     capy.style.display = "none";
     smirnoff.style.display = "none"; 
     battleVision.removeChild(removeScreen);
+    if(heroClass.innerText === "Warrior"){
+        healthBar.innerText = `Health points: ${warrior.hp}`;
+        ManaBar.innerText = `Mana Points:  ${warrior.mana}`;
+        hpRegen.innerText = `HP Regen: ${warrior.hpRegen}`;
+        manaRegen.innerText = `Mana Regen : ${warrior.manaRegen}`;
+        document.querySelector(".custom-hero").style.display = "block";
+        } else{
+            healthBar.innerText = `Health points: ${mage.hp}`;
+            ManaBar.innerText = `Mana Points:  ${mage.mana}`;
+            hpRegen.innerText = `HP Regen: ${mage.hpRegen}`;
+            manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
+            document.querySelector(".custom-hero").style.display = "block";
+            } 
 })

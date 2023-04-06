@@ -17,14 +17,29 @@
                     <h3 class="m-1" id="hero-class"></h3>
                 </div>
                 <div id="story-bat">
-                    <div class="col-lg-6 custom-hero">hi</div>
-                    <div class="col-lg-6 custom-enemy">hi</div>
+                    <div class="d-flex justify-content-around">
+
+                        <div class="custom-hero">
+                            <ul class="stats-container list-unstyled">
+                                <li class="fs-2 text-center list-unstyled">You:</li>
+                                <li class="fs-3" id="health-bar"></li>
+                                <li class="fs-3" id="hp-re"></li>
+                                <li class="fs-3" id="mana-re"></li>
+                                 <li class="fs-3" id="mana-bar"></li>
+                            </ul>
+                        </div>
+                        <div class="custom-enemy">
+                            <ul class="stats-container list-unstyled">
+                                <li class="fs-2 text-center">Enemy:</li>
+                                 <li class="fs-3" id="en-hp"></li>
+                                 <li class="fs-3" id="en-atk"></li>
+                            </div>
+                    </div>
                     <div id="removable-screen">
                             <div id="btn-con" class="btn-container">
                                 <h5 class="m-1" id="class-getter">Choose your class:</h5>
                                 <button class="m-1" id="warrior-btn">Warrior</button>
                                 <button class="m-1" id="mage-btn">Mage</button>
-                                <button class="m-1" id="rogue-btn">Rogue</button>
                             </div>
                             <div class="level-description-container d-flex align-items-center justify-content-center">
                                 <p id="level" class="level-summary fs-3 text-center text-wrap" style="margin-top:100px; width: 500px;"></p>
