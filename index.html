@@ -11,16 +11,21 @@
 <body class="bg-dark">
     <div class="container">
         <div id="game" class="row">
-            <div id="ingame-panel" class="bg-light col-lg-12 custom-col text-dark" style="height: 800px;">
-                <div class="d-flex">
+            <div id="ingame-panel" class="bg-light custom-col text-dark" style="height: 800px;">
+                <div class="d-flex bg-black text-light">
                     <h3 class="m-1" id="hero-name"></h3>
                     <h3 class="m-1" id="hero-class"></h3>
                 </div>
-                <div class="btn-container">
+                <div id="btn-con" class="btn-container">
                     <h5 class="m-1" id="class-getter">Choose your class:</h5>
                     <button class="m-1" id="warrior-btn">Warrior</button>
                     <button class="m-1" id="mage-btn">Mage</button>
                     <button class="m-1" id="rogue-btn">Rogue</button>
+                </div>
+                <div class="level-description-container d-flex align-items-center justify-content-center">
+                    <p class="level-summary fs-3 text-center text-wrap" style="margin-top:100px; width: 500px;"></p>
+                </div>
+                <div class="row d-flex justify-content-center align-items-center proceed-container">
                 </div>
             </div>
             <div id="game-panel" class="col d-flex justify-content-center align-items-center bg-danger p-2 m-4 flex-column" style="width: 700px; height: 700px;">

@@ -8,10 +8,7 @@ const rogueBtn = document.getElementById("rogue-btn");
 const mageBtn = document.getElementById("mage-btn");
 const heroClass = document.getElementById("hero-class");
 const warriorBtn = document.getElementById("warrior-btn")
-
-
-
-
+const btnClassCon = document.getElementById("btn-con");
 
 
 
@@ -37,30 +34,33 @@ startBtn.addEventListener("click", () =>{
     invInput.style.display = "none";
     inGamePanel.style.display = "block";
     game.removeChild(gamePanel);
-    heroName.innerText = `${invInput.value}`;        
+    heroName.innerText = `${invInput.value} -`;        
     })
 
     invInput.style.display = "block";
 });
 
 warriorBtn.addEventListener("click", () =>{
-    mageBtn.style.display = "none";
-    warriorBtn.style.display = "none";
-    rogueBtn.style.display = "none";
-    heroClass.innerText = "- Warrior";
+    btnClassCon.style.display = 'none'
+    heroClass.innerText = "Warrior";
     document.getElementById("class-getter").style.display='none';
+    document.querySelector(".level-summary").innerText = `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`;
+    const proceedBtn =document.createElement("button");
+    proceedBtn.innerText = 'Proceed';
+    document.querySelector(".proceed-container").appendChild(proceedBtn)
 });
 mageBtn.addEventListener("click", () =>{
-    mageBtn.style.display = "none";
-    warriorBtn.style.display = "none";
-    rogueBtn.style.display = "none";
-    heroClass.innerText = "- Mage"
+    btnClassCon.style.display = 'none'
+    heroClass.innerText = "Mage"
     document.getElementById("class-getter").style.display='none';
+    document.querySelector(".level-summary").innerText = `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
+    document.querySelector(".proceed-container").appendChild(proceedBtn)
+
 });
 rogueBtn.addEventListener("click", () =>{
-    mageBtn.style.display = "none";
-    warriorBtn.style.display = "none";
-    rogueBtn.style.display = "none";
-    heroClass.innerText = "- rogue";
+    btnClassCon.style.display = 'none'
+    heroClass.innerText = "Rogue";
     document.getElementById("class-getter").style.display='none';
-})
+    document.querySelector(".level-summary").innerText = `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
+    document.querySelector(".proceed-container").appendChild(proceedBtn)
+});
