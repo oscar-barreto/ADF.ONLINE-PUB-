@@ -2,7 +2,6 @@ class Hero {
     constructor(hp,hpRegen,atk,mana,manaRegen){
         this.hp =hp;
         this.hpRegen = hpRegen;
-        // this.atk= Math.floor(Math.random()*5+1);
         this.atk = atk;
         this.mana = mana;
         this.manaRegen = manaRegen;
@@ -45,7 +44,8 @@ class Enemy{
     
 // }
 
-
-let warrior = new Hero(12,0.5,1,8,0.3);
-let mage = new Hero(8,0.3,Math.floor(Math.random()*5),12,0.5);
+let warrior = new Hero(12,0.5,2,8,0.3);
+let mage = new Hero(8,0.3,1,12,0.5);
 let capybara = new Enemy(5,3);
+let dwarf = new Enemy(6,2);
+let player;

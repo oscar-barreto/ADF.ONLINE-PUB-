@@ -16,9 +16,11 @@ const removeScreen = document.getElementById("removable-screen");
 const healthBar = document.getElementById("health-bar");
 const ManaBar = document.getElementById("mana-bar");
 const hpRegen = document.getElementById("hp-re");
+const heroAttack = document.getElementById("h-atk")
 const manaRegen = document.getElementById("mana-re");
 const enemyHp = document.getElementById("en-hp");
 const enemyAtk = document.getElementById("en-atk");
+const atkBtn = document.getElementById("btn-atk")
 
 
 
@@ -55,8 +57,9 @@ startBtn.addEventListener("click", () =>{
 
 
 warriorBtn.addEventListener("click", () =>{
-    btnClassCon.style.display = 'none'
+    btnClassCon.style.display = 'none';
     heroClass.innerText = "Warrior";
+    player = warrior;
     document.getElementById("class-getter").style.display='none';
     summaryText.innerText = `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`;
     const proceedBtn =document.createElement("button");
@@ -92,29 +95,71 @@ mageBtn.addEventListener("click", () =>{
 });
 // Capybara field choice btn
 
+function loadPlayerStats(){
+    healthBar.innerText = `Health points: ${player.hp}`;
+    ManaBar.innerText = `Mana Points:  ${player.mana}`;
+    heroAttack.innerText = `Attack: ${player.atk}`;
+    hpRegen.innerText = `HP Regen: ${player.hpRegen}`;
+    manaRegen.innerText = `Mana Regen : ${player.manaRegen}`;
+    document.querySelector(".custom-hero").style.display = "block";
+}
+function loadMonsterStats(){
+    enemyHp.innerText = `Health points: ${monster.hp}`
+    enemyAtk.innerText = `Attack: ${monster.atk}`
+}
+
+
+
+
 capy.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the field of Capybaras. But the on the horizon you see a really obese capybara heading to attack you. Get ready to defend yourself!";
     capy.style.display = "none";
     smirnoff.style.display = "none";
     battleVision.removeChild(removeScreen);
     document.querySelector(".custom-enemy").style.display = "block";
-    enemyHp.innerText = `Health points: ${capybara.hp}`
-    enemyAtk.innerText = `Attack: ${capybara.atk}`
+    monster = capybara;
 
-        if(heroClass.innerText === "Warrior"){
-        healthBar.innerText = `Health points: ${warrior.hp}`;
-        ManaBar.innerText = `Mana Points:  ${warrior.mana}`;
-        hpRegen.innerText = `HP Regen: ${warrior.hpRegen}`;
-        manaRegen.innerText = `Mana Regen : ${warrior.manaRegen}`;
-        document.querySelector(".custom-hero").style.display = "block";
-        } else{
-            healthBar.innerText = `Health points: ${mage.hp}`;
-            ManaBar.innerText = `Mana Points:  ${mage.mana}`;
-            hpRegen.innerText = `HP Regen: ${mage.hpRegen}`;
-            manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
-            document.querySelector(".custom-hero").style.display = "block";
+    loadMonsterStats();
+    
+    // enemyHp.innerText = `Health points: ${capybara.hp}`
+    // enemyAtk.innerText = `Attack: ${capybara.atk}`
+
+    loadPlayerStats();
+
+    
+        // if(heroClass.innerText === "Warrior"){
+        // healthBar.innerText = `Health points: ${warrior.hp}`;
+        // ManaBar.innerText = `Mana Points:  ${warrior.mana}`;
+        // heroAttack.innerText = `Attack: ${warrior.atk}`;
+        // hpRegen.innerText = `HP Regen: ${warrior.hpRegen}`;
+        // manaRegen.innerText = `Mana Regen : ${warrior.manaRegen}`;
+        // document.querySelector(".custom-hero").style.display = "block";
+        // } else{
+        //     healthBar.innerText = `Health points: ${mage.hp}`;
+        //     ManaBar.innerText = `Mana Points:  ${mage.mana}`;
+        //     heroAttack.innerText = `Attack: ${mage.atk}`;
+        //     hpRegen.innerText = `HP Regen: ${mage.hpRegen}`;
+        //     manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
+        //     document.querySelector(".custom-hero").style.display = "block";
+        //     }
+        atkBtn.addEventListener("click", ()=>{
+                capybara.hp = capybara.hp - player.atk;
+                warrior.hp = player.hp - capybara.atk;
+                healthBar.innerText = `Health points: ${player.hp}`;
+                enemyHp.innerText = `Health points: ${capybara.hp}`;
+                if(capybara.hp<=0){
+                    document.querySelector(".custom-hero").style.display= "none";
+                    document.querySelector(".custom-enemy").style.display= "none";
+                    battleVision.appendChild(removeScreen);
+                    summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
+                }
+                if(warrior.hp<=0){
+                    alert("Game Over");
+                }
             }
+        )  
 });
+
 
 // Smirnoff mines choice btn
 
@@ -124,17 +169,9 @@ smirnoff.addEventListener("click", ()=>{
     capy.style.display = "none";
     smirnoff.style.display = "none"; 
     battleVision.removeChild(removeScreen);
-    if(heroClass.innerText === "Warrior"){
-        healthBar.innerText = `Health points: ${warrior.hp}`;
-        ManaBar.innerText = `Mana Points:  ${warrior.mana}`;
-        hpRegen.innerText = `HP Regen: ${warrior.hpRegen}`;
-        manaRegen.innerText = `Mana Regen : ${warrior.manaRegen}`;
-        document.querySelector(".custom-hero").style.display = "block";
-        } else{
-            healthBar.innerText = `Health points: ${mage.hp}`;
-            ManaBar.innerText = `Mana Points:  ${mage.mana}`;
-            hpRegen.innerText = `HP Regen: ${mage.hpRegen}`;
-            manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
-            document.querySelector(".custom-hero").style.display = "block";
-            } 
+    document.querySelector(".custom-enemy").style.display = "block";
+    enemyHp.innerText = `Health points: ${dwarf.hp}`
+    enemyAtk.innerText = `Attack: ${dwarf.atk}`
+
+    loadPlayerStats();
 })
