@@ -24,6 +24,23 @@ const atkBtn = document.getElementById("btn-atk")
 
 
 
+function loadPlayerStats(){
+    healthBar.innerText = `Health points: ${player.hp}`;
+    ManaBar.innerText = `Mana Points:  ${player.mana}`;
+    heroAttack.innerText = `Attack: ${player.atk}`;
+    hpRegen.innerText = `HP Regen: ${player.hpRegen}`;
+    manaRegen.innerText = `Mana Regen : ${player.manaRegen}`;
+    document.querySelector(".custom-hero").style.display = "block";
+}
+function loadMonsterStats(){
+    enemyHp.innerText = `Health points: ${monster.hp}`
+    enemyAtk.innerText = `Attack: ${monster.atk}`
+}
+function battleScreen(){};
+
+function loadStoryScreen(){};
+
+
 
 
 startBtn.addEventListener("click", () =>{
@@ -59,7 +76,9 @@ startBtn.addEventListener("click", () =>{
 warriorBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none';
     heroClass.innerText = "Warrior";
+
     player = warrior;
+
     document.getElementById("class-getter").style.display='none';
     summaryText.innerText = `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`;
     const proceedBtn =document.createElement("button");
@@ -80,6 +99,9 @@ warriorBtn.addEventListener("click", () =>{
 mageBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none';
     heroClass.innerText = "Mage";
+
+    player = mage;
+
     document.getElementById("class-getter").style.display='none';
     summaryText.innerText =  `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
     const proceedBtn =document.createElement("button");
@@ -95,19 +117,6 @@ mageBtn.addEventListener("click", () =>{
 });
 // Capybara field choice btn
 
-function loadPlayerStats(){
-    healthBar.innerText = `Health points: ${player.hp}`;
-    ManaBar.innerText = `Mana Points:  ${player.mana}`;
-    heroAttack.innerText = `Attack: ${player.atk}`;
-    hpRegen.innerText = `HP Regen: ${player.hpRegen}`;
-    manaRegen.innerText = `Mana Regen : ${player.manaRegen}`;
-    document.querySelector(".custom-hero").style.display = "block";
-}
-function loadMonsterStats(){
-    enemyHp.innerText = `Health points: ${monster.hp}`
-    enemyAtk.innerText = `Attack: ${monster.atk}`
-}
-
 
 
 
@@ -120,7 +129,7 @@ capy.addEventListener("click", ()=>{
     monster = capybara;
 
     loadMonsterStats();
-    
+
     // enemyHp.innerText = `Health points: ${capybara.hp}`
     // enemyAtk.innerText = `Attack: ${capybara.atk}`
 
@@ -142,18 +151,20 @@ capy.addEventListener("click", ()=>{
         //     manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
         //     document.querySelector(".custom-hero").style.display = "block";
         //     }
+        
         atkBtn.addEventListener("click", ()=>{
-                capybara.hp = capybara.hp - player.atk;
-                warrior.hp = player.hp - capybara.atk;
+                monster.hp = monster.hp - player.atk;
+                player.hp = player.hp - monster.atk;
+
                 healthBar.innerText = `Health points: ${player.hp}`;
-                enemyHp.innerText = `Health points: ${capybara.hp}`;
-                if(capybara.hp<=0){
+                enemyHp.innerText = `Health points: ${monster.hp}`;
+                if(monster.hp<=0){
                     document.querySelector(".custom-hero").style.display= "none";
                     document.querySelector(".custom-enemy").style.display= "none";
                     battleVision.appendChild(removeScreen);
                     summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
                 }
-                if(warrior.hp<=0){
+                if(player.hp<=0){
                     alert("Game Over");
                 }
             }
@@ -169,9 +180,33 @@ smirnoff.addEventListener("click", ()=>{
     capy.style.display = "none";
     smirnoff.style.display = "none"; 
     battleVision.removeChild(removeScreen);
+
+    monster=dwarf;
+
     document.querySelector(".custom-enemy").style.display = "block";
-    enemyHp.innerText = `Health points: ${dwarf.hp}`
-    enemyAtk.innerText = `Attack: ${dwarf.atk}`
+    enemyHp.innerText = `Health points: ${monster.hp}`
+    enemyAtk.innerText = `Attack: ${monster.atk}`
 
     loadPlayerStats();
+
+    loadMonsterStats();
+
+
+    atkBtn.addEventListener("click", ()=>{
+        monster.hp = monster.hp - player.atk;
+        player.hp = player.hp - monster.atk;
+
+        healthBar.innerText = `Health points: ${player.hp}`;
+        enemyHp.innerText = `Health points: ${monster.hp}`;
+        if(monster.hp<=0){
+            document.querySelector(".custom-hero").style.display= "none";
+            document.querySelector(".custom-enemy").style.display= "none";
+            battleVision.appendChild(removeScreen);
+            summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey"
+        }
+        if(player.hp<=0){
+            alert("Game Over");
+        }
+    }
+)
 })
