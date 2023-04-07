@@ -120,10 +120,9 @@ warriorBtn.addEventListener("click", () =>{
     proceedBtn.classList.add("pro-btn");
     document.querySelector(".proceed-container").appendChild(proceedBtn);
     document.querySelector(".pro-btn").addEventListener("click", () =>{
-        summaryText.innerText="You were chosen to rescue princess Valentine from the castle of Ilyria, the only way to rescue her is by crossing the entire Kingdom of Frankia. Fortunately there are multiple ways on how to get to her? Would you like to choose start by the field of Capybaras or the Mines or Smirnoff? "
+        summaryText.innerText="You were chosen to rescue princess Valentine from the castle of Ilyria, the only way to rescue her is by crossing the entire Kingdom of Frankia. Fortunately the path to get there is not too complicated. Almost a straight line. Start by going to the field of Capybaras"
         document.querySelector(".pro-btn").style.display = "none";
         capy.style.display = "block";
-        smirnoff.style.display = "block";
     })
 });
 
@@ -302,19 +301,6 @@ fightCapybara.addEventListener("click", ()=>{
 
 // Smirnoff mines choice btn
 
-
-smirnoff.addEventListener("click", ()=>{
-    summaryText.innerText = "You arrive at the Mines of Smirnoff. But then you see on the horizon an angry dwarf holding his sword charging towards you. Get ready to defend yourself!";
-    loadMonsterStats();
-
-    loadPlayerStats();
-
-    monster=dwarf;
-
-    loadPlayerStats();
-
-    loadMonsterStats();
-});
 
 continueBtn.addEventListener("click", ()=>{
     summaryText.innerText = "Welcome to the village Shop. Here you can buy potions before you continue on your journey";
