@@ -26,6 +26,7 @@ const proceedContainer = document.querySelector(".proceed-container");
 const healthPotionBtn = document.getElementById("health-potion-btn");
 const skillBtn = document.getElementById("skill-shot");
 const manaPotionBtn = document.getElementById("mana-potion-btn");
+const goldSpan = document.getElementById("gold-count");
 
 
 
@@ -56,14 +57,7 @@ function loadStoryScreen(){
     proceedContainer.appendChild(continueBtn);
     continueBtn.style.display = "block";
 };
-function loadVillage(){
-    summaryText.innerText = "You have arrived in the Village of Gonomira. Resupply before you continue on your journey.";
 
-};
-function useHealthPotion(){
-    let healthPotion = 1;
-    document.getElementById("hpotion-count").innerText = `${healthPotion}`
-}
 
 startBtn.addEventListener("click", () =>{
     startBtn.style.display = "none";
@@ -100,7 +94,7 @@ warriorBtn.addEventListener("click", () =>{
     heroClass.innerText = "Warrior - ";
 
     player = warrior;
-
+    goldSpan.innerText = `${player.goldCoins}`
     document.getElementById("class-getter").style.display='none';
     summaryText.innerText = `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`;
     const proceedBtn =document.createElement("button");
@@ -123,7 +117,7 @@ mageBtn.addEventListener("click", () =>{
     heroClass.innerText = "Mage - ";
 
     player = mage;
-
+    goldSpan.innerText = `${player.goldCoins}`
     document.getElementById("class-getter").style.display='none';
     summaryText.innerText =  `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
     const proceedBtn =document.createElement("button");
@@ -144,7 +138,6 @@ mageBtn.addEventListener("click", () =>{
 
 capy.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the field of Capybaras. But the on the horizon you see a really obese capybara heading to attack you. Get ready to defend yourself!";
-    
     loadBattleScreen();
     
     // capy.style.display = "none";
@@ -176,22 +169,27 @@ capy.addEventListener("click", ()=>{
         //     manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
         //     document.querySelector(".custom-hero").style.display = "block";
         //     }
-        healthPotionBtn.addEventListener("click", ()=>{
-            player.hp = player.hp + 5;
-            useHealthPotion();
-            healthPotionCount();
+        
+        healthPotionBtn.addEventListener("click", () =>{
+            player.useHealthPotion();
             healthBar.innerText = `Health points: ${player.hp}`;
-        });
+            document.getElementById("hpotion-count").innerText = `${player.healthPotions}`
+
+        })
         manaPotionBtn.addEventListener("click", ()=>{
-            player.mana = player.mana + 4;
-            ManaBar.innerText = `Mana Points: ${player.mana}`;
-        });
+            player.useManaPotion();
+            ManaBar.innerText = `Mana points: ${player.mana}`;
+            document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
+        })
+
 
         skillBtn.addEventListener("click", ()=>{
             monster.hp = monster.hp - 4;
             player.mana = player.man -4;
             enemyHp.innerText = `Health points: ${monster.hp}`;
             if(monster.hp<=0){
+                player.addGoldCoin();
+                goldSpan.innerText = `${player.goldCoins}`
                 loadStoryScreen();
                 summaryText.innerText = "You have defeated your first mighty foe. The Capybara King. Now you must go to the nearby village in and resupply";
                 
@@ -209,7 +207,9 @@ capy.addEventListener("click", ()=>{
                     // document.querySelector(".custom-enemy").style.display= "none";
                     // battleVision.appendChild(removeScreen);
                     // summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
-
+                    // player.goldCoins = player.goldCoins + monster.goldCoins;
+                    player.addGoldCoin();
+                    goldSpan.innerText = `${player.goldCoins}`
                     loadStoryScreen();
                     summaryText.innerText = "You have defeated your first mighty foe. The Capybara King. Now you must go to the nearby village in and resupply";
                     
@@ -241,20 +241,25 @@ smirnoff.addEventListener("click", ()=>{
 
     loadMonsterStats();
 
-    healthPotionBtn.addEventListener("click", ()=>{
-        player.hp = player.hp + 5;
+    healthPotionBtn.addEventListener("click", () =>{
+        player.useHealthPotion();
         healthBar.innerText = `Health points: ${player.hp}`;
-    });
+        document.getElementById("hpotion-count").innerText = `${player.healthPotions}`
+
+    })
     manaPotionBtn.addEventListener("click", ()=>{
-        player.mana = player.mana + 4;
-        ManaBar.innerText = `Mana Points: ${player.mana}`;
-    });
+        player.useManaPotion();
+        ManaBar.innerText = `Mana points: ${player.mana}`;
+        document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
+    })
 
     skillBtn.addEventListener("click", ()=>{
         monster.hp = monster.hp - 4;
         player.mana = player.man -4;
         enemyHp.innerText = `Health points: ${monster.hp}`;
         if(monster.hp<=0){
+            player.addGoldCoin();
+            goldSpan.innerText = `${player.goldCoins}`
             loadStoryScreen();
             summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey. Stop at the nearby village to resupply"
             
@@ -268,9 +273,9 @@ smirnoff.addEventListener("click", ()=>{
         healthBar.innerText = `Health points: ${player.hp}`;
         enemyHp.innerText = `Health points: ${monster.hp}`;
         if(monster.hp<=0){
-            document.querySelector(".custom-hero").style.display= "none";
-            document.querySelector(".custom-enemy").style.display= "none";
-            battleVision.appendChild(removeScreen);
+            player.addGoldCoin();
+            goldSpan.innerText = `${player.goldCoins}`
+            loadStoryScreen();
             summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey. Stop at the nearby village to resupply"
         }
         if(player.hp<=0){
