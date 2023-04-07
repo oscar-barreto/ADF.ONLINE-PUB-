@@ -35,13 +35,13 @@ const fightCapybara = document.getElementById("capy-attack");
 
 
 function loadPlayerStats(){
-    healthBar.innerText = `Health points: ${player.hp}`;
+    healthBar.innerText = `Health Points: ${player.hp}`;
     ManaBar.innerText = `Mana Points:  ${player.mana}`;
     heroAttack.innerText = `Attack: ${player.atk}`;
     document.querySelector(".custom-hero").style.display = "block";
 }
 function loadMonsterStats(){
-    enemyHp.innerText = `Health points: ${monster.hp}`
+    enemyHp.innerText = `Health Points: ${monster.hp}`
     enemyAtk.innerText = `Attack: ${monster.atk}`
 }
 function loadBattleScreen(){
@@ -143,13 +143,13 @@ mageBtn.addEventListener("click", () =>{
 
 healthPotionBtn.addEventListener("click", () =>{
     player.useHealthPotion();
-    healthBar.innerText = `Health points: ${player.hp}`;
+    healthBar.innerText = `Health Points: ${player.hp}`;
     document.getElementById("hpotion-count").innerText = `${player.healthPotions}`
 
 })
 manaPotionBtn.addEventListener("click", ()=>{
     player.useManaPotion();
-    ManaBar.innerText = `Mana points: ${player.mana}`;
+    ManaBar.innerText = `Mana Points: ${player.mana}`;
     document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
 });
 
@@ -157,8 +157,8 @@ atkBtn.addEventListener("click", ()=>{
     monster.hp = monster.hp - player.atk;
     player.hp = player.hp - monster.atk;
 
-    healthBar.innerText = `Health points: ${player.hp}`;
-    enemyHp.innerText = `Health points: ${monster.hp}`;
+    healthBar.innerText = `Health Points: ${player.hp}`;
+    enemyHp.innerText = `Health Points: ${monster.hp}`;
     if(monster.hp<=0){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
@@ -173,8 +173,8 @@ atkBtn.addEventListener("click", ()=>{
 )  
 skillBtn.addEventListener("click", ()=>{
     player.useSkill();
-    healthBar.innerText = `Health points: ${player.hp}`;
-    enemyHp.innerText = `Health points: ${monster.hp}`;
+    healthBar.innerText = `Health Points: ${player.hp}`;
+    enemyHp.innerText = `Health Points: ${monster.hp}`;
 
     if(monster.hp<=0){
         player.addGoldCoin();
