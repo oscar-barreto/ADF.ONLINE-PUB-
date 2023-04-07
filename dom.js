@@ -340,7 +340,7 @@ dragonContinueBtn.addEventListener("click", ()=>{
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
-        summaryText.innerText =  "You have defeated the great dragon, after this great feat you are finally ready to go to the castle and save the princess. Rumor says the evil spirit of Vegania has posessed her!";
+        summaryText.innerText =  "You have defeated the great dragon, after this great feat you are finally ready to go to the castle and save the princess. Rumor says the evil spirit of Grumpyinia has posessed her!";
         goToCastleButton.style.display = "block";
         continueBtn.style.display = "none";
         fightPrincess.display.style = "none";
