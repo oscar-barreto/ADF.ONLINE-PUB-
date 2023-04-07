@@ -8,7 +8,7 @@ const mageBtn = document.getElementById("mage-btn");
 const heroClass = document.getElementById("hero-class");
 const warriorBtn = document.getElementById("warrior-btn")
 const btnClassCon = document.getElementById("btn-con");
-const summaryText = document.getElementById("level");
+let summaryText = document.getElementById("level");
 const capy = document.getElementById("capy");
 const smirnoff = document.getElementById("smirnoff");
 const battleVision = document.getElementById("story-bat");
@@ -27,15 +27,17 @@ const healthPotionBtn = document.getElementById("health-potion-btn");
 const skillBtn = document.getElementById("skill-shot");
 const manaPotionBtn = document.getElementById("mana-potion-btn");
 const goldSpan = document.getElementById("gold-count");
-
+const buyManaPotions = document.getElementById("manapo-btn");
+const buyHealthPotions = document.getElementById("healthpo-btn");
+const leaveVillage = document.getElementById("leave-btn");
+const dragonContinueBtn = document.getElementById("dragon-continue-btn");
+const fightCapybara = document.getElementById("capy-attack");
 
 
 function loadPlayerStats(){
     healthBar.innerText = `Health points: ${player.hp}`;
     ManaBar.innerText = `Mana Points:  ${player.mana}`;
     heroAttack.innerText = `Attack: ${player.atk}`;
-    hpRegen.innerText = `HP Regen: ${player.hpRegen}`;
-    manaRegen.innerText = `Mana Regen : ${player.manaRegen}`;
     document.querySelector(".custom-hero").style.display = "block";
 }
 function loadMonsterStats(){
@@ -43,9 +45,8 @@ function loadMonsterStats(){
     enemyAtk.innerText = `Attack: ${monster.atk}`
 }
 function loadBattleScreen(){
-    capy.style.display = "none";
-    smirnoff.style.display = "none";
     battleVision.removeChild(removeScreen);
+    document.querySelector(".custom-hero").style.display= "block";
     document.querySelector(".custom-enemy").style.display = "block";
 };
 
@@ -57,6 +58,16 @@ function loadStoryScreen(){
     proceedContainer.appendChild(continueBtn);
     continueBtn.style.display = "block";
 };
+
+function gameOver(){
+        game.style.display ="none"
+        alert("GAME OVER")
+ };
+
+ function finalBoss(){
+    document.querySelector(".custom-hero").style.display= "none";
+    document.querySelector(".custom-enemy").style.display= "none";
+ }
 
 
 startBtn.addEventListener("click", () =>{
@@ -131,156 +142,156 @@ mageBtn.addEventListener("click", () =>{
         smirnoff.style.display = "block";
     })
 });
-// Capybara field choice btn
+
+healthPotionBtn.addEventListener("click", () =>{
+    player.useHealthPotion();
+    healthBar.innerText = `Health points: ${player.hp}`;
+    document.getElementById("hpotion-count").innerText = `${player.healthPotions}`
+
+})
+manaPotionBtn.addEventListener("click", ()=>{
+    player.useManaPotion();
+    ManaBar.innerText = `Mana points: ${player.mana}`;
+    document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
+});
+skillBtn.addEventListener("click", ()=>{
+    player.useSkill();
+    enemyHp.innerText = `Health points: ${monster.hp}`;
+    ManaBar.innerText = `Mana Points:  ${player.mana}`;
+    if (monster.hp<=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`;
+        loadStoryScreen();
+        summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
+
+        
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+});
+
+atkBtn.addEventListener("click", ()=>{
+    monster.hp = monster.hp - player.atk;
+    player.hp = player.hp - monster.atk;
+
+    healthBar.innerText = `Health points: ${player.hp}`;
+    enemyHp.innerText = `Health points: ${monster.hp}`;
+    if(capybara.hp<=0){
+        // document.querySelector(".custom-hero").style.display= "none";
+        // document.querySelector(".custom-enemy").style.display= "none";
+        // battleVision.appendChild(removeScreen);
+        // summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
+        // player.goldCoins = player.goldCoins + monster.goldCoins;
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`
+        // loadStoryScreen();        
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+}
+)  
 
 
+// CAPYBARA INTERACTIONS
 
 
 capy.addEventListener("click", ()=>{
+    capy.style.display = "none";
+    smirnoff.style.display = "none";
     summaryText.innerText = "You arrive at the field of Capybaras. But the on the horizon you see a really obese capybara heading to attack you. Get ready to defend yourself!";
+    fightCapybara.style.display = 'block';
+});
+
+// FIGHT CAPYBARA BUTTON
+
+fightCapybara.addEventListener("click", ()=>{
     loadBattleScreen();
-    
-    // capy.style.display = "none";
-    // smirnoff.style.display = "none";
-    // battleVision.removeChild(removeScreen);
-    // document.querySelector(".custom-enemy").style.display = "block";
     monster = capybara;
 
     loadMonsterStats();
 
-    // enemyHp.innerText = `Health points: ${capybara.hp}`
-    // enemyAtk.innerText = `Attack: ${capybara.atk}`
-
     loadPlayerStats();
-
     
-        // if(heroClass.innerText === "Warrior"){
-        // healthBar.innerText = `Health points: ${warrior.hp}`;
-        // ManaBar.innerText = `Mana Points:  ${warrior.mana}`;
-        // heroAttack.innerText = `Attack: ${warrior.atk}`;
-        // hpRegen.innerText = `HP Regen: ${warrior.hpRegen}`;
-        // manaRegen.innerText = `Mana Regen : ${warrior.manaRegen}`;
-        // document.querySelector(".custom-hero").style.display = "block";
-        // } else{
-        //     healthBar.innerText = `Health points: ${mage.hp}`;
-        //     ManaBar.innerText = `Mana Points:  ${mage.mana}`;
-        //     heroAttack.innerText = `Attack: ${mage.atk}`;
-        //     hpRegen.innerText = `HP Regen: ${mage.hpRegen}`;
-        //     manaRegen.innerText = `Mana Regen : ${mage.manaRegen}`;
-        //     document.querySelector(".custom-hero").style.display = "block";
-        //     }
-        
-        healthPotionBtn.addEventListener("click", () =>{
-            player.useHealthPotion();
-            healthBar.innerText = `Health points: ${player.hp}`;
-            document.getElementById("hpotion-count").innerText = `${player.healthPotions}`
-
-        })
-        manaPotionBtn.addEventListener("click", ()=>{
-            player.useManaPotion();
-            ManaBar.innerText = `Mana points: ${player.mana}`;
-            document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
-        })
-
-
-        skillBtn.addEventListener("click", ()=>{
-            monster.hp = monster.hp - 4;
-            player.mana = player.man -4;
-            enemyHp.innerText = `Health points: ${monster.hp}`;
-            if(monster.hp<=0){
-                player.addGoldCoin();
-                goldSpan.innerText = `${player.goldCoins}`
-                loadStoryScreen();
-                summaryText.innerText = "You have defeated your first mighty foe. The Capybara King. Now you must go to the nearby village in and resupply";
-                
-            }
-        })
-
-        atkBtn.addEventListener("click", ()=>{
-                monster.hp = monster.hp - player.atk;
-                player.hp = player.hp - monster.atk;
-
-                healthBar.innerText = `Health points: ${player.hp}`;
-                enemyHp.innerText = `Health points: ${monster.hp}`;
-                if(monster.hp<=0){
-                    // document.querySelector(".custom-hero").style.display= "none";
-                    // document.querySelector(".custom-enemy").style.display= "none";
-                    // battleVision.appendChild(removeScreen);
-                    // summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
-                    // player.goldCoins = player.goldCoins + monster.goldCoins;
-                    player.addGoldCoin();
-                    goldSpan.innerText = `${player.goldCoins}`
-                    loadStoryScreen();
-                    summaryText.innerText = "You have defeated your first mighty foe. The Capybara King. Now you must go to the nearby village in and resupply";
-                    
-                }
-                if(player.hp<=0){
-                    alert("Game Over");
-                }
-            }
-        )  
 });
+// if(capybara.hp<=0){
+//     player.addGoldCoin();
+//     goldSpan.innerText = `${player.goldCoins}`
+//     loadStoryScreen();        
+// }
+// if(player.hp<=0){
+//     gameOver();
+// }
+// loadBattleScreen();
 
+    // battleVision.removeChild(removeScreen);
+    // document.querySelector(".custom-hero").style.display= "block";
+    // document.querySelector(".custom-enemy").style.display = "block";
+
+    // monster = capybara;
+
+    // loadMonsterStats();
+
+    // loadPlayerStats();
+    // battleVision.removeChild(removeScreen);
 
 // Smirnoff mines choice btn
 
 
 smirnoff.addEventListener("click", ()=>{
     summaryText.innerText = "You arrive at the Mines of Smirnoff. But then you see on the horizon an angry dwarf holding his sword charging towards you. Get ready to defend yourself!";
-    capy.style.display = "none";
-    smirnoff.style.display = "none"; 
-    battleVision.removeChild(removeScreen);
+    loadMonsterStats();
+
+    loadPlayerStats();
 
     monster=dwarf;
-
-    document.querySelector(".custom-enemy").style.display = "block";
-    enemyHp.innerText = `Health points: ${monster.hp}`
-    enemyAtk.innerText = `Attack: ${monster.atk}`
 
     loadPlayerStats();
 
     loadMonsterStats();
+});
 
-    healthPotionBtn.addEventListener("click", () =>{
-        player.useHealthPotion();
-        healthBar.innerText = `Health points: ${player.hp}`;
-        document.getElementById("hpotion-count").innerText = `${player.healthPotions}`
+continueBtn.addEventListener("click", ()=>{
+    summaryText.innerText = "Welcome to the village Shop. Here you can buy potions before you continue on your journey";
+    buyManaPotions.style.display = "block";
+    buyHealthPotions.style.display = "block";
+    leaveVillage.style.display = "block";
+    continueBtn.style.display = "none";
+});
 
-    })
-    manaPotionBtn.addEventListener("click", ()=>{
-        player.useManaPotion();
-        ManaBar.innerText = `Mana points: ${player.mana}`;
-        document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
-    })
+buyHealthPotions.addEventListener("click", ()=>{
+    player.addHealthPotion();
+    player.useGoldCoin();
+    goldSpan.innerText = `${player.goldCoins}`
+    document.getElementById("hpotion-count").innerText = `${player.healthPotions}`
+});
+buyManaPotions.addEventListener("click", ()=>{
+    player.addManaPotion();
+    player.useGoldCoin();
+    goldSpan.innerText = `${player.goldCoins}`
+    document.getElementById("mpotion-count").innerText = `${player.manaPotions}`;          
+});
 
-    skillBtn.addEventListener("click", ()=>{
-        monster.hp = monster.hp - 4;
-        player.mana = player.man -4;
-        enemyHp.innerText = `Health points: ${monster.hp}`;
-        if(monster.hp<=0){
-            player.addGoldCoin();
-            goldSpan.innerText = `${player.goldCoins}`
-            loadStoryScreen();
-            summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey. Stop at the nearby village to resupply"
-            
-        }
-    })
+leaveVillage.addEventListener("click", ()=>{
+    summaryText.innerText = "Upon leaving the village. It became obvious that there would not be anymore more easy paths. You had to be on your way to face the Dragon Gribouille in the old ruins of EggPLantia";
+    buyManaPotions.style.display = "none";
+    buyHealthPotions.style.display = "none";
+    leaveVillage.style.display = "none";
+    dragonContinueBtn.style.display = "block";
+});
 
-    atkBtn.addEventListener("click", ()=>{
-        monster.hp = monster.hp - player.atk;
-        player.hp = player.hp - monster.atk;
+dragonContinueBtn.addEventListener("click", ()=>{
+    loadBattleScreen();
+    monster = dragon;
 
-        healthBar.innerText = `Health points: ${player.hp}`;
-        enemyHp.innerText = `Health points: ${monster.hp}`;
-        if(monster.hp<=0){
-            player.addGoldCoin();
-            goldSpan.innerText = `${player.goldCoins}`
-            loadStoryScreen();
-            summaryText.innerText = "You have just slayed the Dwarf lord and you may proceed in your journey. Stop at the nearby village to resupply"
-        }
-        if(player.hp<=0){
-            alert("Game Over");
-        }
+    if(dragon.hp <=0){
+        loadStoryScreen();
+        summaryText.innerText =  "You have defeated the great dragon";
+
     }
-)
-})
+    if(player.hp<=0){
+        gameOver();
+    }
+
+});

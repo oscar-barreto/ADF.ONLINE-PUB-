@@ -24,8 +24,15 @@
 .custom-enemy{
     display: none;
 }
-#continue-btn, #healthpo-btn, #manapo-btn{
+#continue-btn, #healthpo-btn, #manapo-btn, #dragon-continue-btn, #leave-btn {
     width: 120px;
     height: 70px;
-    display: none;  
+    display: none;
+    margin: 10px;  
+}
+#capy-attack{
+    width: 120px;
+    height: 70px;
+    display: none;
+    margin: 10px;  
 }

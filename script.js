@@ -1,16 +1,27 @@
 class Hero {
-    constructor(hp,hpRegen,atk,mana,manaRegen,healthPotions,manaPotions,goldCoins){
+    constructor(hp,atk,mana,healthPotions,manaPotions,goldCoins){
         this.hp =hp;
-        this.hpRegen = hpRegen;
         this.atk = atk;
         this.mana = mana;
-        this.manaRegen = manaRegen;
         this.healthPotions = healthPotions;
         this.manaPotions = manaPotions;
         this.goldCoins = goldCoins;
     }
+    useSkill(){
+        if(player.mana<4){
+            return;
+        }
+        player.mana = player.mana - 4;
+        monster.hp = monster.hp -4;
+    }
     addGoldCoin(){
         player.goldCoins = player.goldCoins + monster.goldCoins;
+    }
+    useGoldCoin(){
+        if(this.goldCoins<=0){
+            return
+        }
+        this.goldCoins -= 10;
     }
     useManaPotion(){
         if(!this.manaPotions){
@@ -20,10 +31,10 @@ class Hero {
         this.mana+=4;
     }
     addManaPotion(){
-        if(!this.goldCoins){
+        if(this.goldCoins<=0){
             return
         }
-        this.goldCoins = this.goldCoins - 20;
+        this.goldCoins = player.goldCoins - 10;
         this.ManaPotions++;
     }
 
@@ -35,10 +46,10 @@ class Hero {
         this.hp+=5;
     }
     addHealthPotion(){
-        if(!this.goldCoins){
+        if(this.goldCoins<=0){
             return
         }
-        this.goldCoins = this.goldCoins - 20;
+        this.goldCoins = player.goldCoins - 10;
         this.healthPotions++;
     }
 }
@@ -71,9 +82,10 @@ class Enemy{
     
 // }
 
-let warrior = new Hero(12,0.5,2,8,0.3,1,1,50);
-let mage = new Hero(8,0.3,1,12,0.5,1,1,50);
+let warrior = new Hero(12,2,8,1,1,50);
+let mage = new Hero(8,1,12,1,1,50);
 let capybara = new Enemy(5,3,40);
 let dwarf = new Enemy(6,2,40);
+let dragon = new Enemy(15,4,50);
 let player;
 let monster;
