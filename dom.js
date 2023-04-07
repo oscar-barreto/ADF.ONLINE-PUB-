@@ -59,6 +59,9 @@ function loadStoryScreen(){
     if(dragon.hp<=0){
         dragonContinueBtn.style.display ="none";
     }
+    if(grumpyPrincess.hp <= 0){
+        fightPrincess.style.display = "none"
+    }
     document.querySelector(".custom-hero").style.display= "none";
     document.querySelector(".custom-enemy").style.display= "none";
     battleVision.appendChild(removeScreen);
@@ -71,11 +74,6 @@ function gameOver(){
         game.style.display ="none"
         alert("GAME OVER")
  };
-
- function finalBoss(){
-    document.querySelector(".custom-hero").style.display= "none";
-    document.querySelector(".custom-enemy").style.display= "none";
- }
 
 
 startBtn.addEventListener("click", () =>{
@@ -172,9 +170,34 @@ skillBtn.addEventListener("click", ()=>{
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`;
         loadStoryScreen();
-        summaryText.innerText = "You have slayed the fierce foe"
+        summaryText.innerText = "Youve have slayed the fierce foe";
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+    if(dragon.hp<=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`
+        loadStoryScreen();
+        summaryText.innerText =  "You have defeated the great dragon, after this great feat you are finally ready to go to the castle and save the princess. Rumor says the evil spirit of Vegania has posessed her!";
+        goToCastleButton.style.display = "block";
+        continueBtn.style.display = "none";
+        fightPrincess.display.style = "none"; 
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+    if(grumpyPrincess.hp <=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`
+        loadStoryScreen();
+        summaryText.innerText =  "Congratulations you have rescued the princess. You saved the Kingdom of Frankia. As I thank you the princess has invited you to live in the castle and has asked for your to marry her";
+        fightPrincess.style.display = "none";
+        continueBtn.style.display = "none";
+        goToCastleButton.style.display ="none";
 
-        
+
+
     }
     if(player.hp<=0){
         gameOver();
@@ -187,15 +210,42 @@ atkBtn.addEventListener("click", ()=>{
 
     healthBar.innerText = `Health Points: ${player.hp}`;
     enemyHp.innerText = `Health Points: ${monster.hp}`;
-    if(monster.hp<=0){
+    if(capybara.hp<=0){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
-        summaryText.innerText = "You have slayed the fierce foe";  
+        summaryText.innerText = "Youve have slayed the fierce foe";  
     }
     if(player.hp<=0){
         gameOver();
     }
+    if(dragon.hp<=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`
+        loadStoryScreen();
+        summaryText.innerText =  "You have defeated the great dragon, after this great feat you are finally ready to go to the castle and save the princess. Rumor says the evil spirit of Vegania has posessed her!";
+        goToCastleButton.style.display = "block";
+        continueBtn.style.display = "none";
+        fightPrincess.display.style = "none";
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+    if(grumpyPrincess.hp <=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`
+        loadStoryScreen();
+        summaryText.innerText =  "Congratulations you have rescued the princess. You saved the Kingdom of Frankia. As I thank you the princess has invited you to live in the castle and has asked for your to marry her";
+        fightPrincess.style.display = "none";
+        continueBtn.style.display = "none";
+        goToCastleButton.style.display ="none";
+
+
+
+    }
+    if(player.hp<=0){
+        gameOver();
+    }   
 }
 )  
 
@@ -303,9 +353,13 @@ dragonContinueBtn.addEventListener("click", ()=>{
     loadMonsterStats();
 
     if(dragon.hp <=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
         summaryText.innerText =  "You have defeated the great dragon, after this great feat you are finally ready to go to the castle and save the princess. Rumor says the evil spirit of Vegania has posessed her!";
         goToCastleButton.style.display = "block";
+        continueBtn.style.display = "none";
+        fightPrincess.display.style = "none";
 
 
     }
@@ -327,14 +381,18 @@ fightPrincess.addEventListener("click", ()=>{
     loadBattleScreen();
     loadMonsterStats();
 
-    if(grumpyPrincess.hp <=0){
-        loadStoryScreen();
-        summaryText.innerText =  "Congratulations you have rescued the princess. You saved the Kingdom of Frankia. As I thank you the princess has invited you to live in the castle and has asked for your to marry her";
-        fightPrincess.style.display = "none";
+    // if(grumpyPrincess.hp <=0){
+    //     player.addGoldCoin();
+    //     goldSpan.innerText = `${player.goldCoins}`
+    //     loadStoryScreen();
+    //     summaryText.innerText =  "Congratulations you have rescued the princess. You saved the Kingdom of Frankia. As I thank you the princess has invited you to live in the castle and has asked for your to marry her";
+    //     fightPrincess.style.display = "none";
+    //     continueBtn.style.display = "none";
+    //     goToCastleButton.style.display ="none";
 
 
-    }
-    if(player.hp<=0){
-        gameOver();
-    }
+    // }
+    // if(player.hp<=0){
+    //     gameOver();
+    // }
 })
