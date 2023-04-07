@@ -16,4 +16,4 @@ A mid point in which you get to resupply for the bigger battles to come
 
 A battle against a Dragon
 
-And last but not least the last battle to save the princess.
+And last but not least the last battle to save the princess!
