@@ -55,8 +55,6 @@ function loadStoryScreen(){
     document.querySelector(".custom-enemy").style.display= "none";
     battleVision.appendChild(removeScreen);
     removeScreen.appendChild(proceedContainer)
-    proceedContainer.appendChild(continueBtn);
-    continueBtn.style.display = "block";
 };
 
 function gameOver(){
@@ -154,22 +152,6 @@ manaPotionBtn.addEventListener("click", ()=>{
     ManaBar.innerText = `Mana points: ${player.mana}`;
     document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
 });
-skillBtn.addEventListener("click", ()=>{
-    player.useSkill();
-    enemyHp.innerText = `Health points: ${monster.hp}`;
-    ManaBar.innerText = `Mana Points:  ${player.mana}`;
-    if (monster.hp<=0){
-        player.addGoldCoin();
-        goldSpan.innerText = `${player.goldCoins}`;
-        loadStoryScreen();
-        summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
-
-        
-    }
-    if(player.hp<=0){
-        gameOver();
-    }
-});
 
 atkBtn.addEventListener("click", ()=>{
     monster.hp = monster.hp - player.atk;
@@ -177,15 +159,28 @@ atkBtn.addEventListener("click", ()=>{
 
     healthBar.innerText = `Health points: ${player.hp}`;
     enemyHp.innerText = `Health points: ${monster.hp}`;
-    if(capybara.hp<=0){
-        // document.querySelector(".custom-hero").style.display= "none";
-        // document.querySelector(".custom-enemy").style.display= "none";
-        // battleVision.appendChild(removeScreen);
-        // summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara"
-        // player.goldCoins = player.goldCoins + monster.goldCoins;
+    if(monster.hp<=0){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
-        // loadStoryScreen();        
+        loadStoryScreen();
+        summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara";
+        
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+}
+)  
+skillBtn.addEventListener("click", ()=>{
+    player.useSkill();
+    healthBar.innerText = `Health points: ${player.hp}`;
+    enemyHp.innerText = `Health points: ${monster.hp}`;
+
+    if(monster.hp<=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`
+        loadStoryScreen();
+        summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara";        
     }
     if(player.hp<=0){
         gameOver();
@@ -209,6 +204,7 @@ capy.addEventListener("click", ()=>{
 fightCapybara.addEventListener("click", ()=>{
     loadBattleScreen();
     monster = capybara;
+    monster = new Enemy (5,3,40);
 
     loadMonsterStats();
 
@@ -282,8 +278,9 @@ leaveVillage.addEventListener("click", ()=>{
 });
 
 dragonContinueBtn.addEventListener("click", ()=>{
-    loadBattleScreen();
     monster = dragon;
+    loadBattleScreen();
+    loadMonsterStats();
 
     if(dragon.hp <=0){
         loadStoryScreen();

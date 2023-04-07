@@ -35,7 +35,7 @@ class Hero {
             return
         }
         this.goldCoins = player.goldCoins - 10;
-        this.ManaPotions++;
+        this.manaPotions++;
     }
 
     useHealthPotion(){
