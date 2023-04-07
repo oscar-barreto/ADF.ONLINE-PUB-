@@ -32,6 +32,8 @@ const buyHealthPotions = document.getElementById("healthpo-btn");
 const leaveVillage = document.getElementById("leave-btn");
 const dragonContinueBtn = document.getElementById("dragon-continue-btn");
 const fightCapybara = document.getElementById("capy-attack");
+const goToCastleButton = document.getElementById("castle-btn");
+const fightPrincess = document.getElementById("fight-princess")
 
 
 function loadPlayerStats(){
@@ -51,10 +53,18 @@ function loadBattleScreen(){
 };
 
 function loadStoryScreen(){
+    if(capybara.hp <= 0){
+        fightCapybara.style.display = 'none';
+    }
+    if(dragon.hp<=0){
+        dragonContinueBtn.style.display ="none";
+    }
     document.querySelector(".custom-hero").style.display= "none";
     document.querySelector(".custom-enemy").style.display= "none";
     battleVision.appendChild(removeScreen);
     removeScreen.appendChild(proceedContainer)
+    proceedContainer.appendChild(continueBtn);
+    continueBtn.style.display = "block";
 };
 
 function gameOver(){
@@ -100,18 +110,19 @@ startBtn.addEventListener("click", () =>{
 
 warriorBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none';
+    let className = 'Mage';
     heroClass.innerText = "Warrior - ";
 
     player = warrior;
     goldSpan.innerText = `${player.goldCoins}`
     document.getElementById("class-getter").style.display='none';
-    summaryText.innerText = `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`;
+    summaryText.innerText = `You have made your first hard choice by choosing your class which is: ${className}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`;
     const proceedBtn =document.createElement("button");
     proceedBtn.innerText = 'Proceed';
     proceedBtn.classList.add("pro-btn");
     document.querySelector(".proceed-container").appendChild(proceedBtn);
     document.querySelector(".pro-btn").addEventListener("click", () =>{
-        summaryText.innerText="You were chosen to rescue princess Valentine from the castle of Ilyria, the only way to rescue her is by crossing the entire Kingdom of Abundriel. Fortunately there are multiple ways on how to get to her? Would you like to choose start by the field of Capybaras or the Mines or Smirnoff? "
+        summaryText.innerText="You were chosen to rescue princess Valentine from the castle of Ilyria, the only way to rescue her is by crossing the entire Kingdom of Frankia. Fortunately there are multiple ways on how to get to her? Would you like to choose start by the field of Capybaras or the Mines or Smirnoff? "
         document.querySelector(".pro-btn").style.display = "none";
         capy.style.display = "block";
         smirnoff.style.display = "block";
@@ -123,18 +134,19 @@ warriorBtn.addEventListener("click", () =>{
 
 mageBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none';
+    let className = 'Mage';
     heroClass.innerText = "Mage - ";
 
     player = mage;
     goldSpan.innerText = `${player.goldCoins}`
     document.getElementById("class-getter").style.display='none';
-    summaryText.innerText =  `You have nade your first hard choice by choosing your class which is: ${heroClass.innerHTML}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
+    summaryText.innerText =  `You have made your first hard choice by choosing your class which is: ${className}, now you must choose which path you will take. Each path will affect what kind of adversities you may face, some paths will prove to be extremely challenging`
     const proceedBtn =document.createElement("button");
     proceedBtn.innerText = 'Proceed';
     proceedBtn.classList.add("pro-btn");
     document.querySelector(".proceed-container").appendChild(proceedBtn);
     document.querySelector(".pro-btn").addEventListener("click", () =>{
-        summaryText.innerText="You were chosen to rescue princess Valentine from the castle of Ilyria, the only way to rescue her is by crossing the entire Kingdom of Abundriel. Fortunately there are multiple ways on how to get to her? Would you like to choose start by the field of Capybaras or the Mines or Smirnoff? "
+        summaryText.innerText="You were chosen to rescue princess Valentine from the castle of Ilyria, the only way to rescue her is by crossing the entire Kingdom of Frankia. Fortunately there are multiple ways on how to get to her? Would you like to choose start by the field of Capybaras or the Mines or Smirnoff? "
         document.querySelector(".pro-btn").style.display = "none";
         capy.style.display = "block";
         smirnoff.style.display = "block";
@@ -152,6 +164,22 @@ manaPotionBtn.addEventListener("click", ()=>{
     ManaBar.innerText = `Mana Points: ${player.mana}`;
     document.getElementById("mpotion-count").innerText = `${player.manaPotions}`        
 });
+skillBtn.addEventListener("click", ()=>{
+    player.useSkill();
+    enemyHp.innerText = `Health Points: ${monster.hp}`;
+    ManaBar.innerText = `Mana Points:  ${player.mana}`;
+    if (monster.hp<=0){
+        player.addGoldCoin();
+        goldSpan.innerText = `${player.goldCoins}`;
+        loadStoryScreen();
+        summaryText.innerText = "You have slayed the fierce foe"
+
+        
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+});
 
 atkBtn.addEventListener("click", ()=>{
     monster.hp = monster.hp - player.atk;
@@ -163,24 +191,7 @@ atkBtn.addEventListener("click", ()=>{
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
-        summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara";
-        
-    }
-    if(player.hp<=0){
-        gameOver();
-    }
-}
-)  
-skillBtn.addEventListener("click", ()=>{
-    player.useSkill();
-    healthBar.innerText = `Health Points: ${player.hp}`;
-    enemyHp.innerText = `Health Points: ${monster.hp}`;
-
-    if(monster.hp<=0){
-        player.addGoldCoin();
-        goldSpan.innerText = `${player.goldCoins}`
-        loadStoryScreen();
-        summaryText.innerText = "You have slayed the fierce foe, known as the king Capybara";        
+        summaryText.innerText = "You have slayed the fierce foe";  
     }
     if(player.hp<=0){
         gameOver();
@@ -204,11 +215,20 @@ capy.addEventListener("click", ()=>{
 fightCapybara.addEventListener("click", ()=>{
     loadBattleScreen();
     monster = capybara;
-    monster = new Enemy (5,3,40);
 
     loadMonsterStats();
 
     loadPlayerStats();
+    
+    // if(capybara.hp<=0){
+    //     player.addGoldCoin();
+    //     goldSpan.innerText = `${player.goldCoins}`
+    //     loadStoryScreen();
+    //     summaryText.innerText = "You have slayed the fierce foe";  
+    // }
+    // if(player.hp<=0){
+    //     gameOver();
+    // }
     
 });
 // if(capybara.hp<=0){
@@ -284,7 +304,9 @@ dragonContinueBtn.addEventListener("click", ()=>{
 
     if(dragon.hp <=0){
         loadStoryScreen();
-        summaryText.innerText =  "You have defeated the great dragon";
+        summaryText.innerText =  "You have defeated the great dragon, after this great feat you are finally ready to go to the castle and save the princess. Rumor says the evil spirit of Vegania has posessed her!";
+        goToCastleButton.style.display = "block";
+
 
     }
     if(player.hp<=0){
@@ -292,3 +314,27 @@ dragonContinueBtn.addEventListener("click", ()=>{
     }
 
 });
+
+goToCastleButton.addEventListener("click", ()=>{
+    summaryText.innerText =  "You have arrived in the Castle. It is truly beautiful exactly how you remembered, back when things were simple and you were the princess secret lover. As you finally enter the main hall, you see the princess seating down with a purple chiasma behind her. She gets up and run towards you to attack you. Youve to defeat her to free her";
+    goToCastleButton.style.display = "none";
+    fightPrincess.style.display = "block";
+});
+
+
+fightPrincess.addEventListener("click", ()=>{
+    monster = grumpyPrincess;
+    loadBattleScreen();
+    loadMonsterStats();
+
+    if(grumpyPrincess.hp <=0){
+        loadStoryScreen();
+        summaryText.innerText =  "Congratulations you have rescued the princess. You saved the Kingdom of Frankia. As I thank you the princess has invited you to live in the castle and has asked for your to marry her";
+        fightPrincess.style.display = "none";
+
+
+    }
+    if(player.hp<=0){
+        gameOver();
+    }
+})

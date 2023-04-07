@@ -21,7 +21,7 @@ class Hero {
         if(this.goldCoins<=0){
             return
         }
-        this.goldCoins -= 10;
+        this.goldCoins -= 5;
     }
     useManaPotion(){
         if(!this.manaPotions){
@@ -34,7 +34,7 @@ class Hero {
         if(this.goldCoins<=0){
             return
         }
-        this.goldCoins = player.goldCoins - 10;
+        this.goldCoins = player.goldCoins - 5;
         this.manaPotions++;
     }
 
@@ -49,7 +49,7 @@ class Hero {
         if(this.goldCoins<=0){
             return
         }
-        this.goldCoins = player.goldCoins - 10;
+        this.goldCoins = player.goldCoins - 5;
         this.healthPotions++;
     }
 }
@@ -87,5 +87,6 @@ let mage = new Hero(8,1,12,1,1,50);
 let capybara = new Enemy(5,3,40);
 let dwarf = new Enemy(6,2,40);
 let dragon = new Enemy(15,4,50);
+let grumpyPrincess = new Enemy(20,3,100);
 let player;
 let monster;

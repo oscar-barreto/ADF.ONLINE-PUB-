@@ -36,3 +36,15 @@
     display: none;
     margin: 10px;  
 }
+#castle-btn{
+    width: 120px;
+    height: 70px;
+    display: none;
+    margin: 10px;  
+}
+#fight-princess{
+    width: 120px;
+    height: 70px;
+    display: none;
+    margin: 10px; 
+}
