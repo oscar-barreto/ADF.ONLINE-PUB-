@@ -108,7 +108,7 @@ startBtn.addEventListener("click", () =>{
 
 warriorBtn.addEventListener("click", () =>{
     btnClassCon.style.display = 'none';
-    let className = 'Mage';
+    let className = 'Warrior';
     heroClass.innerText = "Warrior - ";
 
     player = warrior;
@@ -166,16 +166,19 @@ skillBtn.addEventListener("click", ()=>{
     player.useSkill();
     enemyHp.innerText = `Health Points: ${monster.hp}`;
     ManaBar.innerText = `Mana Points:  ${player.mana}`;
-    if (monster.hp<=0){
+
+    if(player.hp<=0){
+        gameOver();
+    }
+
+    if (capybara.hp<=0 && monster == capybara){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`;
         loadStoryScreen();
         summaryText.innerText = "Youve have slayed the fierce foe";
     }
-    if(player.hp<=0){
-        gameOver();
-    }
-    if(dragon.hp<=0){
+
+    if(dragon.hp<=0 && monster == dragon){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
@@ -184,10 +187,8 @@ skillBtn.addEventListener("click", ()=>{
         continueBtn.style.display = "none";
         fightPrincess.display.style = "none"; 
     }
-    if(player.hp<=0){
-        gameOver();
-    }
-    if(grumpyPrincess.hp <=0){
+
+    if(grumpyPrincess.hp <=0 && monster == grumpyPrincess){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
@@ -210,16 +211,19 @@ atkBtn.addEventListener("click", ()=>{
 
     healthBar.innerText = `Health Points: ${player.hp}`;
     enemyHp.innerText = `Health Points: ${monster.hp}`;
-    if(capybara.hp<=0){
+
+    if(player.hp<=0){
+        gameOver();
+    }
+
+    if(capybara.hp<=0 && monster == capybara){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
         summaryText.innerText = "Youve have slayed the fierce foe";  
     }
-    if(player.hp<=0){
-        gameOver();
-    }
-    if(dragon.hp<=0){
+
+    if(dragon.hp<=0 && monster == dragon){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
@@ -228,10 +232,8 @@ atkBtn.addEventListener("click", ()=>{
         continueBtn.style.display = "none";
         fightPrincess.display.style = "none";
     }
-    if(player.hp<=0){
-        gameOver();
-    }
-    if(grumpyPrincess.hp <=0){
+
+    if(grumpyPrincess.hp <=0 && monster == grumpyPrincess){
         player.addGoldCoin();
         goldSpan.innerText = `${player.goldCoins}`
         loadStoryScreen();
@@ -243,11 +245,7 @@ atkBtn.addEventListener("click", ()=>{
 
 
     }
-    if(player.hp<=0){
-        gameOver();
-    }   
-}
-)  
+});
 
 
 // CAPYBARA INTERACTIONS
